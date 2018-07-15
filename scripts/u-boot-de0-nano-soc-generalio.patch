@@ -1,0 +1,92 @@
+diff --git a/board/terasic/de0-nano-soc/qts/pinmux_config.h b/board/terasic/de0-nano-soc/qts/pinmux_config.h
+index 3854110..e44870d 100644
+--- a/board/terasic/de0-nano-soc/qts/pinmux_config.h
++++ b/board/terasic/de0-nano-soc/qts/pinmux_config.h
+@@ -41,38 +41,38 @@ const u8 sys_mgr_init_table[] = {
+ 	3, /* FLASHIO9 */
+ 	3, /* FLASHIO10 */
+ 	3, /* FLASHIO11 */
+-	0, /* GENERALIO0 */
+-	1, /* GENERALIO1 */
+-	1, /* GENERALIO2 */
+-	1, /* GENERALIO3 */
+-	1, /* GENERALIO4 */
+-	0, /* GENERALIO5 */
+-	0, /* GENERALIO6 */
+-	1, /* GENERALIO7 */
+-	1, /* GENERALIO8 */
+-	0, /* GENERALIO9 */
+-	0, /* GENERALIO10 */
+-	0, /* GENERALIO11 */
+-	0, /* GENERALIO12 */
+-	0, /* GENERALIO13 */
+-	0, /* GENERALIO14 */
+-	1, /* GENERALIO15 */
+-	1, /* GENERALIO16 */
+-	1, /* GENERALIO17 */
+-	1, /* GENERALIO18 */
+-	0, /* GENERALIO19 */
+-	0, /* GENERALIO20 */
+-	0, /* GENERALIO21 */
+-	0, /* GENERALIO22 */
+-	0, /* GENERALIO23 */
+-	0, /* GENERALIO24 */
+-	0, /* GENERALIO25 */
+-	0, /* GENERALIO26 */
+-	0, /* GENERALIO27 */
+-	0, /* GENERALIO28 */
+-	0, /* GENERALIO29 */
+-	0, /* GENERALIO30 */
+-	0, /* GENERALIO31 */
++	0, /* GENERALIO0 0:GPIO48, trace.clk */
++	1, /* GENERALIO1 0:GPIO49, [1:uart0.rx], 2:spis0.clk, 3:trace.d0 */
++	1, /* GENERALIO2 0:GPIO50, [1:uart0.tx], 2:spis0.mosi, 3:trace.d1 */
++	1, /* GENERALIO3 0:GPIO51, [1:i2c1.sda], 2:spis0.miso, 3:trace.d2 */
++	1, /* GENERALIO4 0:GPIO52, [1:i2c1.scl], 2:spis0.ss0, 3:trace.d3 */
++	0, /* GENERALIO5 0:GPIO53, 1:can1.rx, 2:spis1.clk, 3:trace.d4 */
++	0, /* GENERALIO6 0:GPIO54, 1:can1.tx, spis1.mosi, 3:trace.d5 */
++	1, /* GENERALIO7 0:GPIO55, [1:i2c0.sda], 2:spis1.ss0, 3:trace.d6 */
++	1, /* GENERALIO8 0:GPIO56, [1:isc0.scl], 2:spis1.miso, 3:trace.d7 , */
++	0, /* GENERALIO9 0:GPIO57, 1:uart0.cts, 2:i2c1.sda, 3:spim0.clk */
++	0, /* GENERALIO10 0:GPIO58, 1:uart0.rts, 2:i2c1.scl, 3:spim0.mosi */
++	0, /* GENERALIO11 0:GPIO59, 1:uart1.cts, 2:can1.rx, 3:spim0.miso */
++	0, /* GENERALIO12 0:GPIO60, 1:uart1.rts, 2:can1.tx, 3:spim0.ss0 */
++	0, /* GENERALIO13 0:GPIO61, 1:spim0.ss1, 2:can0.rx, 3:uart0.rx */
++	0, /* GENERALIO14 0:GPIO62, 1:spim1.ss1, 2:can0.tx, 3:uart0.tx */
++	0, /* GENERALIO15 0:GPIO63, (1:SPIM.CLK),   2:UART1.RX, 3:I2C0.SDA 0xffd084bc */
++	0, /* GENERALIO16 0:GPIO64, (1:SPIM1.MOSI), 2:UART1.TX, 3:I2C0.SCL */
++	0, /* GENERALIO17 0:GPIO65, (1:SPIM1.MISO), 2:UART0.RX, 3:CAN0.RX */
++	0, /* GENERALIO18 0:GPIO66, (1:SPIM1.SS0),  2:UART0.TX, 3:CAN0.Tx */
++	0, /* GENERALIO19 0:GPIO67, 2:spim1.clk, 3:spis1.clk */
++	0, /* GENERALIO20 0:GPIO68, 2:spim1.mosi, 3:spis1.mosi */
++	0, /* GENERALIO21 0:GPIO69, 2:spim1.miso, 3:spis1.miso */
++	0, /* GENERALIO22 0:GPIO70, 2:spim1.ss0,  3:spis1.ss0 */
++	0, /* GENERALIO23 0:GPIO62, 2:spim1.ss1,  3:uart1.rx */
++	0, /* GENERALIO24 0:GPIO63, 2:spim0.clk,  3:uart1.tx */
++	0, /* GENERALIO25 0:GPIO64, 2:spim0.mosi, 3:i2c1.sda */
++	0, /* GENERALIO26 0:GPIO65, 2:spim0.miso, 3:i2c1.scl */
++	0, /* GENERALIO27 0:GPIO66, 2:spim0.ss0 */
++	0, /* GENERALIO28 0:GPIO67, 2:spim0.ss1, 3:spis0.clk */
++	0, /* GENERALIO29 0:GPIO68, 3:spis0.mosi */
++	0, /* GENERALIO30 0:GPIO69, 3:spis0.miso */
++	0, /* GENERALIO31 0:GPIO70, 3:spis0.ss0 */
+ 	2, /* MIXED1IO0 */
+ 	2, /* MIXED1IO1 */
+ 	2, /* MIXED1IO2 */
+diff --git a/include/configs/socfpga_common.h b/include/configs/socfpga_common.h
+index 8a7debb..a249c4a 100644
+--- a/include/configs/socfpga_common.h
++++ b/include/configs/socfpga_common.h
+@@ -336,7 +336,11 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
+ 	"scriptaddr=0x02100000\0" \
+ 	"pxefile_addr_r=0x02200000\0" \
+ 	"ramdisk_addr_r=0x02300000\0" \
+-	BOOTENV
++	BOOTENV \
++    "bootimage=zImage\0" \
++    "mmcroot=/dev/mmcblk0p2\0" \
++    "mmcboot=setenv bootargs console=ttyS0,115200 root=${mmcroot} rw rootwait;bootz ${loadaddr} - ${fdt_addr_r}\0" \
++    "mmcload=mmc rescan;fatload mmc 0:1 ${loadaddr} ${bootimage}; fatload mmc 0:1 ${fdt_addr_r} ${fdtfile}\0" \
+ 
+ #endif
+ #endif

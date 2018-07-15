@@ -1,0 +1,17 @@
+diff --git a/include/configs/socfpga_common.h b/include/configs/socfpga_common.h
+index 9897e11b59..385ef48149 100644
+--- a/include/configs/socfpga_common.h
++++ b/include/configs/socfpga_common.h
+@@ -349,7 +349,11 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
+ 	"scriptaddr=0x02100000\0" \
+ 	"pxefile_addr_r=0x02200000\0" \
+ 	"ramdisk_addr_r=0x02300000\0" \
+-	BOOTENV
++	BOOTENV \
++    "bootimage=zImage\0" \
++    "mmcroot=/dev/mmcblk0p2\0" \
++    "mmcboot=setenv bootargs console=ttyS0,115200 root=${mmcroot} rw rootwait;bootz ${loadaddr} - ${fdt_addr_r}\0" \
++    "mmcload=mmc rescan;fatload mmc 0:1 ${loadaddr} ${bootimage}; fatload mmc 0:1 ${fdt_addr_r} ${fdtfile}\0" \
+ 
+ #endif
+ #endif
